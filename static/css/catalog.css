@@ -1,0 +1,92 @@
+.sub-title{
+    font-size: 36px;
+    padding-top: 10px;
+}
+
+.item{
+    padding-left: 20px;
+    padding-top: 10px;
+    height: 120px;
+    background-color:white;
+    margin-top: 10px;
+    border-radius: 15px;
+    position: relative;
+    border: 1px solid rgb(29, 100, 29);
+}
+
+
+.item img{
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    border-radius: 100px;
+    /* border: 1px solid rgb(29, 100, 29); */
+}
+
+.description{
+    position: absolute;
+    padding-left: 115px;
+}
+
+.description .name{
+    font-size: 26px;
+}
+
+.description .desc{
+    width: 450px;
+    color:dimgray ;
+}
+
+.tail .btn{
+    font-size: 20px;
+    padding: 10px;
+    /* width: 100px; */
+    float: right;
+    margin-right: 35px;
+    /* margin-left: 87%; */
+    /* margin-top: 20px; */
+    /* line-height: 40px; */
+}
+
+.filter{
+    padding-top: 20px;
+}
+
+.filter .min{
+    margin-left: 10px;
+}
+
+.price{
+    font-size: 24px;
+    color:rgb(46, 42, 42);
+    margin-left: 87%;
+}
+
+.components-image img{
+    margin-top: 20px;
+    width: 50px;
+    height: 50px;
+    display: inline;
+    white-space: nowrap;
+}
+
+.name-component{
+    font-size: 25px;
+    padding-left: 10px;
+    padding-top: 25px;
+    position: absolute;
+}
+
+a, a:hover{
+    color: white;
+    text-decoration: none;
+}
+
+
+.filter .max .low{
+    text-decoration: underline;
+}
+
+.filter .min .hight{
+    text-decoration: underline;
+}

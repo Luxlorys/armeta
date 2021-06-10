@@ -1,0 +1,137 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+
+{% block title %} Сборка ПК {% endblock %}
+
+{% block stylecss %}
+    <!-- <link rel="stylesheet" href="{% static 'css/catalog.css' %}">  -->
+{% endblock %}
+
+
+
+{% block body %}
+
+<div class="container" id="Price">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="main_heading">
+				<h1>Найпопулярніщі конфігурації</h1>
+				<div  class="text-center"><span class="underline"></span></div>
+			</div>
+		</div><!-- End col-md-12 -->
+	</div><!-- End row -->
+
+	<div class="row">
+		<div class="col-md-4 pricing-box-best">
+			<div class="pricing-box">
+				<div class="pricing-box-price">
+					<img src="{% static 'images/low_pc.png' %}" width="150px" height="150px">
+				</div>
+			    
+			    <h4>18 000 грн</h4>
+			    <div class="pricing-box-features">
+			    	<ul>
+			    		<li>Intel Core i3-10100F 3600 GHz</li>
+			    		<li>Geforce GTX 1650 4 GB</li>
+			    		<li>8 GB 2400 GHz RAM</li>
+			    		<li>1000 HDD</li>
+			    		<li>Gigabyte H410M</li>
+			    	</ul>
+			    </div>
+			    <div class="pricing-box-sign-up">
+			    	<a class="btn btn-link-1 scroll-link" href="https://edelws.ru/nedorogie-pc/edelweiss-cyborg/">
+						Купити
+					</a>
+			    </div>
+			</div>
+		</div><!-- End col-dm-4 -->
+
+		<div class="col-md-4 pricing-box-best">
+			<div class="pricing-box">
+            	<div class="pricing-box-price">
+            		<img src="{% static 'images/power_pc.png' %}" width="150px" height="150px">
+            	</div>
+                
+                <h4>145 000 грн</h4>
+                <div class="pricing-box-features">
+                	<ul>
+                		<li>Intel Core i7-10700KF 3800 GHz</li>
+                		<li>Geforce RTX 3090 TI 24 GB</li>
+                		<li>16 GB 4000 / Ghz RAM</li>
+                		<li>4 TB HDD / 500 GB SSD</li>
+                		<li>Asus Prime Z490-P</li>
+                	</ul>
+                </div>
+                <div class="pricing-box-sign-up">
+                	<a class="btn btn-link-1 scroll-link" href="https://edelws.ru/powerfull-pc/edelweiss-unreal/">
+						Купити
+					</a>
+                </div>
+            </div>
+		</div><!-- End col-dm-4 -->
+		
+		<div class="col-md-4 pricing-box-best">
+			<div class="pricing-box">
+            	<div class="pricing-box-price">
+					<img src="{% static 'images/mean_pc.png' %}" width="150px" height="150px">
+				</div>
+                <h4>47 000 грн</h4>
+                <div class="pricing-box-features">
+                	<ul>
+                		<li>Intel Core i5-10400F 2900 GHz</li>
+                		<li>Gigabyte Geforce RTX 3060 12 GB</li>
+                		<li>16 GB 2400 GHz RAM</li>
+                		<li>1000 HDD / 120 GB SSD</li>
+                		<li>Gigabyte H410M</li>
+                	</ul>
+                </div>
+                <div class="pricing-box-sign-up">
+                	<a class="btn btn-link-1 scroll-link" href="https://edelws.ru/power-pc/edelweiss-csgo/">
+						Купити
+					</a>
+                </div>
+            </div>
+		</div><!-- End col-dm-4 -->
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="main_heading">
+                    <h1>Купити готову конфігурацію</h1>
+                    <div  class="text-center"><span class="underline"></span></div>
+                </div>
+            </div><!-- End col-md-12 -->
+        </div><!-- End row -->
+
+		{% for el in complete_pc %}
+		<div class="col-md-4">
+			<div class="pricing-box">
+            	<div class="pricing-box-price">
+					<img src="{{MEDIA_URL}}{{el.img.url}}" width="150px" height="150px">
+				</div>
+                <h4>{{ el.price }} грн</h4>
+                <div class="pricing-box-features">
+                	<ul>
+                		<li>{{ el.cpu }}</li>
+                		<li>{{ el.videoCard }}</li>
+                		<li>{{ el.ram }}</li>
+                		<li>{{ el.memory }}</li>
+                		<li>{{ el.mainBoard }}</li>
+                	</ul>
+                </div>
+                <div class="pricing-box-sign-up">
+                	<a class="btn btn-link-1 scroll-link" href="{{ el.link }}">
+						Купити
+					</a>
+                </div>
+            </div>
+		</div>
+		{% endfor %}
+
+
+	</div><!-- End row -->
+
+</div><!-- End container -->
+
+
+{% endblock %}
