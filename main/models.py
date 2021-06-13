@@ -1,122 +1,61 @@
 from django.db import models
+from django.contrib.auth.models import User
 
-# case 
-# cpu
-# mainboard
-# video card
-# ram
-# ssd
-# cooler
-# power supply unit
+class Product(models.Model):
 
-
-class Case(models.Model):
+    class Meta:
+        abstract=True
 
     name = models.CharField(max_length=255, verbose_name='Назва товару')
     description = models.TextField(null=False, verbose_name='Опис товару', default='')
     img = models.ImageField(verbose_name='Зображення')
     price = models.IntegerField(null=False, verbose_name='Ціна')
-    link = models.TextField(null=False, verbose_name='Посилання на товар', default='')
+    link = models.TextField(null=False, verbose_name='Посилання на товар', default='')    
+
+class Case(Product):
 
     def __str__(self):
         return self.name
 
-
-class CPU(models.Model):
-
-    name = models.CharField(max_length=255, verbose_name='Назва товару')
-    description = models.TextField(null=False, verbose_name='Опис товару', default='')
-    img = models.ImageField(verbose_name='Зображення')
-    price = models.IntegerField(null=False, verbose_name='Ціна')
-    link = models.TextField(null=False, verbose_name='Посилання на товар', default='')
+class CPU(Product):
 
     def __str__(self):
         return self.name
 
-
-class Mainboard(models.Model):
-
-    name = models.CharField(max_length=255, verbose_name='Назва товару')
-    description = models.TextField(null=False, verbose_name='Опис товару', default='')
-    img = models.ImageField(verbose_name='Зображення')
-    price = models.IntegerField(null=False, verbose_name='Ціна')
-    link = models.TextField(null=False, verbose_name='Посилання на товар', default='')
+class Mainboard(Product):
 
     def __str__(self):
         return self.name
 
-
-class VideoCard(models.Model):
-
-    name = models.CharField(max_length=255, verbose_name='Назва товару')
-    description = models.TextField(null=False, verbose_name='Опис товару', default='')
-    img = models.ImageField(verbose_name='Зображення')
-    price = models.IntegerField(null=False, verbose_name='Ціна')
-    link = models.TextField(null=False, verbose_name='Посилання на товар', default='')
+class VideoCard(Product):
 
     def __str__(self):
         return self.name
 
-
-class RAM(models.Model):
-
-    name = models.CharField(max_length=255, verbose_name='Назва товару')
-    description = models.TextField(null=False, verbose_name='Опис товару', default='')
-    img = models.ImageField(verbose_name='Зображення')
-    price = models.IntegerField(null=False, verbose_name='Ціна')
-    link = models.TextField(null=False, verbose_name='Посилання на товар', default='')
+class RAM(Product):
 
     def __str__(self):
         return self.name
 
-
-class SSD(models.Model):
-
-    name = models.CharField(max_length=255, verbose_name='Назва товару')
-    description = models.TextField(null=False, verbose_name='Опис товару', default='')
-    img = models.ImageField(verbose_name='Зображення')
-    price = models.IntegerField(null=False, verbose_name='Ціна')
-    link = models.TextField(null=False, verbose_name='Посилання на товар', default='')
+class SSD(Product):
 
     def __str__(self):
         return self.name
 
-
-class HDD(models.Model):
-
-    name = models.CharField(max_length=255, verbose_name='Назва товару')
-    description = models.TextField(null=False, verbose_name='Опис товару', default='')
-    img = models.ImageField(verbose_name='Зображення')
-    price = models.IntegerField(null=False, verbose_name='Ціна')
-    link = models.TextField(null=False, verbose_name='Посилання на товар', default='')
+class HDD(Product):
 
     def __str__(self):
         return self.name
 
-
-class Cooler(models.Model):
-
-    name = models.CharField(max_length=255, verbose_name='Назва товару')
-    description = models.TextField(null=False, verbose_name='Опис товару', default='')
-    img = models.ImageField(verbose_name='Зображення')
-    price = models.IntegerField(null=False, verbose_name='Ціна')
-    link = models.TextField(null=False, verbose_name='Посилання на товар', default='')
+class Cooler(Product):
 
     def __str__(self):
         return self.name
 
-
-class PowerSupplyUnit(models.Model):
-
-    name = models.CharField(max_length=255, verbose_name='Назва товару')
-    description = models.TextField(null=False, verbose_name='Опис товару', default='')
-    img = models.ImageField(verbose_name='Зображення')
-    price = models.IntegerField(null=False, verbose_name='Ціна')
-    link = models.TextField(null=False, verbose_name='Посилання на товар', default='')
+class PowerSupplyUnit(Product):
 
     def __str__(self):
         return self.name
-
 
 class Complete_PC(models.Model):
     
@@ -131,3 +70,9 @@ class Complete_PC(models.Model):
 
     def __str__(self):
         return self.cpu
+
+
+class add_to_cart(models.Model):
+    username = models.ForeignKey(User, on_delete=models.CASCADE)
+    product_name=models.CharField(max_length=30)
+    quantity = models.IntegerField(default=0)
