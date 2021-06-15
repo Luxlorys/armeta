@@ -1,62 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-class Product(models.Model):
-
-    class Meta:
-        abstract=True
-
-    name = models.CharField(max_length=255, verbose_name='Назва товару')
-    description = models.TextField(null=False, verbose_name='Опис товару', default='')
-    img = models.ImageField(verbose_name='Зображення')
-    price = models.IntegerField(null=False, verbose_name='Ціна')
-    link = models.TextField(null=False, verbose_name='Посилання на товар', default='')    
-
-class Case(Product):
-
-    def __str__(self):
-        return self.name
-
-class CPU(Product):
-
-    def __str__(self):
-        return self.name
-
-class Mainboard(Product):
-
-    def __str__(self):
-        return self.name
-
-class VideoCard(Product):
-
-    def __str__(self):
-        return self.name
-
-class RAM(Product):
-
-    def __str__(self):
-        return self.name
-
-class SSD(Product):
-
-    def __str__(self):
-        return self.name
-
-class HDD(Product):
-
-    def __str__(self):
-        return self.name
-
-class Cooler(Product):
-
-    def __str__(self):
-        return self.name
-
-class PowerSupplyUnit(Product):
-
-    def __str__(self):
-        return self.name
-
 class Complete_PC(models.Model):
     
     cpu = models.CharField(max_length=255, verbose_name='Процеоср')
@@ -71,8 +15,31 @@ class Complete_PC(models.Model):
     def __str__(self):
         return self.cpu
 
+class product_category(models.Model):
+
+    category_name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.category_name
+
 
 class add_to_cart(models.Model):
+    
+    id = models.AutoField(primary_key=True)
     username = models.ForeignKey(User, on_delete=models.CASCADE)
     product_name=models.CharField(max_length=30)
     quantity = models.IntegerField(default=0)
+    
+    def __str__(self):
+        return f'Замовлення № {self.id}'
+
+class Product_details(models.Model):
+
+    product_name = models.CharField(max_length=60)
+    category_name = models.ForeignKey(product_category, on_delete = models.CASCADE, null=True)
+    product_img1 = models.ImageField()
+    product_description = models.TextField(max_length=5000,null=True)
+    product_price = models.IntegerField()
+
+    def __str__(self):
+        return self.product_name

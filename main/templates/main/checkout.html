@@ -1,0 +1,30 @@
+{% extends "main/base.html"%}
+{% load static %}
+
+{% block body %}
+    <h1><i class="bi bi-truck"></i>Оформлення замовлення</h1>
+    <div class="row">
+        <div class="col-8">
+            <form action="#" method="post">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <input type="text" class="form-control" placeholder="ПІБ" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <input type="text" class="form-control" placeholder="Місто" required>
+                    </div> <br> <br>
+                   <br>
+                    <div class="col-md-6 mb-3">
+                        <input type="text" class="form-control" placeholder="Відділ Нової Пошти" value="">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <input type="text" class="form-control" placeholder="Номер телефону" value="" required>
+                    </div>
+                </div>
+            </form>
+        </div> <br>
+        <div class="col-4 bg-light d-flex flex-column">
+            <a href="/success" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Замовити</a>
+        </div>
+    </div>
+{% endblock %}

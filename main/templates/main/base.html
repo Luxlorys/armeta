@@ -54,6 +54,7 @@
       <li><a href="#About">Про мене</a></li>
       <li><a href="/complete">Купити готову конфігурацію</a></li>
       <li><a href="/catalog">Зібрати</a></li>
+      <li><a href="{% url 'show_cart' %}">Кошик</a></li>
       </ul>
     </div><!-- End navbar-collapse -->
     </div><!-- End container -->
@@ -76,8 +77,9 @@
 <!-- End header-div -->
 
 
+<div class="container">
 {% block body %} {% endblock %}
-
+</div>
 
 <!-- Footer -->
 <footer>

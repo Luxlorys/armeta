@@ -1,24 +1,22 @@
 from typing import ChainMap
-from django.shortcuts import render 
-from .models import (
-    Case,
-    CPU,
-    Mainboard, 
-    VideoCard,
-    RAM, 
-    SSD,
-    HDD,
-    Cooler,
-    PowerSupplyUnit,
-    Complete_PC
-    )
+from django.shortcuts import render, redirect
+from .models import *
+from django.db.models import F
+
+
+dic = {}
+all_object = []
 
 
 def index(request):
-    complete_pc = Complete_PC.objects.order_by('-price')
-    return render(request, 'main/index.html', {
-        'complete_pc': complete_pc
-    })
+    return render(request, 'main/index.html')
+
+    
+def catalog(request):
+    products = Product_details.objects.order_by('-product_price')
+    return render(request, 'main/catalog.html', {
+        'products': products
+    }) 
 
     
 def complete(request):
@@ -28,119 +26,43 @@ def complete(request):
     }) 
 
 
-def catalog_max(request):
-    cpu_max = CPU.objects.order_by('-price')
-    cpu_min = CPU.objects.order_by('price')
+def cart(request, id):
+    user = request.user
+    product = Product_details.objects.get(id = int(id))
+    print(request.session.keys())
+    st = []
+    product_in_cart = add_to_cart.objects.filter(id = int(id))
 
-    case_max = Case.objects.order_by('-price')
-    case_min = Case.objects.order_by('price')
+    if not product_in_cart:
+        insert_in_table = add_to_cart(id = int(id), username = user, product_name = product.product_name, quantity=1)
+        insert_in_table.save()
 
-    mainboard_max = Mainboard.objects.order_by('-price')
-    mainboard_min = Mainboard.objects.order_by('price')
+    else:
+        add_to_cart.objects.filter(id = int(id)).update(quantity=F('quantity') + 1)
 
-    videocard_max = VideoCard.objects.order_by('-price')
-    videocard_min = VideoCard.objects.order_by('price')
+    return redirect('show_cart')
 
-    ram_max = RAM.objects.order_by('-price')
-    ram_min = RAM.objects.order_by('price')
 
-    ssd_max = SSD.objects.order_by('-price')
-    ssd_min = SSD.objects.order_by('price')
-
-    hdd_max = HDD.objects.order_by('-price')
-    hdd_min = HDD.objects.order_by('price')
-
-    cooler_max = Cooler.objects.order_by('-price')
-    cooler_min = Cooler.objects.order_by('price')
-
-    powerSupplyUnit_max = PowerSupplyUnit.objects.order_by('-price')
-    powerSupplyUnit_min = PowerSupplyUnit.objects.order_by('price')
+def show_cart(request):
+    b = add_to_cart.objects.filter(username = request.user)
+    a = []
+    total_price = 0
+    for i in b:
+            a.append(i)
+    d = []
     
+    for i in a:
+        product = Product_details.objects.get(id=i.id)
+        d.append(product)
+        product_price = product.product_price
+        total_price = total_price + product_price
 
-    return render(request, 'main/catalog_max.html', {
-        'cpu_max': cpu_max,
-        'cpu_min': cpu_min,
-
-        'case_min': case_min,
-        'case_max': case_max,
-
-        'mainboard_max': mainboard_max,
-        'mainboard_min': mainboard_min,
-
-        'videocard_max': videocard_max,
-        'videocard_min': videocard_min,
-
-        'ram_max': ram_max,
-        'ram_min': ram_min,
-
-        'ssd_max': ssd_max,
-        'ssd_min': ssd_min,
-
-        'hdd_max': hdd_max,
-        'hdd_min': hdd_min,
-
-        'cooler_max': cooler_max,
-        'cooler_min': cooler_min,
-
-        'powerSupplyUnit_max': powerSupplyUnit_max,
-        'powerSupplyUnit_min': powerSupplyUnit_min
-    })
+    return render(request, 'main/cart.html', {'data': zip(d, a), 'total_price': int(total_price)})
 
 
-def catalog(request):
-    cpu_max = CPU.objects.order_by('-price')
-    cpu_min = CPU.objects.order_by('price')
+def checkout(request):
+    return render(request, 'main/checkout.html')
 
-    case_max = Case.objects.order_by('-price')
-    case_min = Case.objects.order_by('price')
 
-    mainboard_max = Mainboard.objects.order_by('-price')
-    mainboard_min = Mainboard.objects.order_by('price')
-
-    videocard_max = VideoCard.objects.order_by('-price')
-    videocard_min = VideoCard.objects.order_by('price')
-
-    ram_max = RAM.objects.order_by('-price')
-    ram_min = RAM.objects.order_by('price')
-
-    ssd_max = SSD.objects.order_by('-price')
-    ssd_min = SSD.objects.order_by('price')
-
-    hdd_max = HDD.objects.order_by('-price')
-    hdd_min = HDD.objects.order_by('price')
-
-    cooler_max = Cooler.objects.order_by('-price')
-    cooler_min = Cooler.objects.order_by('price')
-
-    powerSupplyUnit_max = PowerSupplyUnit.objects.order_by('-price')
-    powerSupplyUnit_min = PowerSupplyUnit.objects.order_by('price')
-    
-
-    return render(request, 'main/catalog.html', {
-        'cpu_max': cpu_max,
-        'cpu_min': cpu_min,
-
-        'case_min': case_min,
-        'case_max': case_max,
-
-        'mainboard_max': mainboard_max,
-        'mainboard_min': mainboard_min,
-
-        'videocard_max': videocard_max,
-        'videocard_min': videocard_min,
-
-        'ram_max': ram_max,
-        'ram_min': ram_min,
-
-        'ssd_max': ssd_max,
-        'ssd_min': ssd_min,
-
-        'hdd_max': hdd_max,
-        'hdd_min': hdd_min,
-
-        'cooler_max': cooler_max,
-        'cooler_min': cooler_min,
-
-        'powerSupplyUnit_max': powerSupplyUnit_max,
-        'powerSupplyUnit_min': powerSupplyUnit_min
-    })
+def success(request):
+    return render(request,'main/success.html')
